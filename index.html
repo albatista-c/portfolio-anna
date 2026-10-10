@@ -20,10 +20,18 @@
     }
  
     header {
+      position: relative;
+      overflow: hidden;
       background: #4d96d6;
       color: white;
       padding: 60px 20px;
       text-align: center;
+    }
+
+    header h1,
+    header p {
+      position: relative;
+      z-index: 1; /* keeps the text in front of the clouds */
     }
  
     header h1 {
@@ -66,8 +74,8 @@
     }
  
     .project {
-      background: #4d96d6;
-      color: #fff;
+      background: white;
+      color: #000;
       padding: 15px;
       margin: 15px 0;
       border-radius: 10px;
@@ -94,6 +102,51 @@
       color: #222;
       text-decoration: none;
       border-radius: 5px;
+    }
+
+    /* Drifting clouds */
+    .cloud {
+      position: absolute;
+      left: 0;
+      width: 120px;
+      height: 40px;
+      background: #fff;
+      border-radius: 50px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+      animation: cloud-drift linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .cloud::before {
+      width: 50px;
+      height: 50px;
+      top: -25px;
+      left: 18px;
+    }
+
+    .cloud::after {
+      width: 70px;
+      height: 70px;
+      top: -35px;
+      left: 50px;
+    }
+
+    @keyframes cloud-drift {
+      from { transform: translateX(-250px) scale(var(--s, 1)); }
+      to   { transform: translateX(100vw) scale(var(--s, 1)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cloud { animation: none; }
     }
 
     /* Click bubbles */
@@ -128,6 +181,11 @@
 <body>
  
   <header>
+    <div class="cloud" style="top: 30px;  --s: 1;    opacity: 0.30; animation-duration: 70s;  animation-delay: -10s;"></div>
+    <div class="cloud" style="top: 110px; --s: 1.4;  opacity: 0.20; animation-duration: 95s;  animation-delay: -55s;"></div>
+    <div class="cloud" style="top: 70px;  --s: 0.7;  opacity: 0.35; animation-duration: 60s;  animation-delay: -35s;"></div>
+    <div class="cloud" style="top: 150px; --s: 1.1;  opacity: 0.25; animation-duration: 85s;  animation-delay: -70s;"></div>
+
     <h1>Anna Luisa Batista</h1>
     <p>University of Washington | HCDE Masters Student | Seattle, WA</p>
   </header>
